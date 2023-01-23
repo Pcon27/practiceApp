@@ -19,6 +19,8 @@ import {
   View,
 } from 'react-native';
 
+import {List, ListItem} from 'react-native-elements';
+
 import {
   Colors,
   DebugInstructions,
@@ -45,17 +47,17 @@ export const USERS: User[] = [];
 
 export function createRandomUser(): User {
   return {
-    userId: faker.datatype.uuid(),
     username: faker.internet.userName(),
     email: faker.internet.email(),
     avatar: faker.image.avatar(),
     password: faker.internet.password(),
     birthdate: faker.date.birthdate(),
     registeredAt: faker.date.past(),
+    img: faker.image.cats(),
   };
 }
 
-Array.from({length: 10}).forEach(() => {
+Array.from({length: 20}).forEach(() => {
   USERS.push(createRandomUser());
 });
 
@@ -75,8 +77,27 @@ function HomeScreen({navigation}): JSX.Element {
 
   return (
     <View style={backgroundStyle}>
+      <FlatList
+        data={USERS}
+        // eslint-disable-next-line react/no-unstable-nested-components
+        ListHeaderComponent={() => {
+          return <Stories story={faker.image.cats()} />;
+        }}
+        renderItem={() => {
+          return (
+            <View>
+              <PostBox
+                username={faker.internet.userName()}
+                avatar={faker.image.cats()}
+                img={faker.image.cats()}
+              />
+            </View>
+          );
+        }}
+      />
+
       {/* <Top /> */}
-      <ScrollView style={styles.spacing}>
+      {/* <FlatList style={styles.spacing}>
         <Stories story={faker.image.cats()} />
         <PostBox
           username={faker.internet.userName()}
@@ -98,7 +119,7 @@ function HomeScreen({navigation}): JSX.Element {
           avatar={faker.image.avatar()}
           img={faker.image.cats()}
         />
-      </ScrollView>
+      </FlatList> */}
       {/* <View style={styles.footer}>
         <Options navigation={navigation} />
       </View> */}
