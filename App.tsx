@@ -46,8 +46,8 @@ const App = () => {
     <Provider store={store}>
       <NavigationContainer>
         <Tab.Navigator initialRouteName="Weather">
-          <Tab.Screen name="Weather" component={WeatherScreen} />
           <Tab.Screen name="Home" component={HomeScreen} />
+          <Tab.Screen name="Weather" component={WeatherScreen} />
           <Tab.Screen name="Profile" component={Profile} />
         </Tab.Navigator>
       </NavigationContainer>
@@ -57,11 +57,8 @@ const App = () => {
 
 const styles = StyleSheet.create({
   area: {
-    height: height * 0.1,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    backgroundColor: '#5D0A8C',
+    backgroundColor: 'red',
+    color: 'red',
   },
   img: {
     height: 40,
