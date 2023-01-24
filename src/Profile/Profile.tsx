@@ -20,6 +20,7 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 import {faker} from '@faker-js/faker';
+import {useSelector, useDispatch} from 'react-redux';
 
 type ProfileProps = {
   username: string;
@@ -27,6 +28,7 @@ type ProfileProps = {
 };
 
 const Profile = () => {
+  const city = useSelector(state => state.city.value);
   return (
     <View style={styles.area}>
       <Image
@@ -35,6 +37,8 @@ const Profile = () => {
       />
       <Text style={styles.username}>USERNAME</Text>
       <Text style={styles.text}>{faker.internet.userName()}</Text>
+      <Text style={styles.username}>City of Interest</Text>
+      <Text style={styles.text}>{city}</Text>
     </View>
   );
 };
