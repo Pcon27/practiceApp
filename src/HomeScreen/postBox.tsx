@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import type {PropsWithChildren} from 'react';
 import {
   Image,
@@ -23,7 +23,10 @@ import {
 import NameBar from './NameBar';
 
 import {Dimensions} from 'react-native';
-import { memoryUsage } from 'process';
+import {memoryUsage} from 'process';
+
+import {useSelector, useDispatch} from 'react-redux';
+import {like, unlike} from '../app/likedSlice';
 
 const width = Dimensions.get('screen').width;
 
@@ -34,14 +37,16 @@ type PostProps = {
 };
 
 const PostBox = (props: PostProps) => {
-  const [liked, setliked] = useState(false);
+  const liked = useSelector(state => state.liked.value);
+  const dispatch = useDispatch();
   return (
     <View>
       <NameBar username={props.username} avatar={{uri: props.avatar}} />
       <Image source={{uri: props.img}} style={styles.Image} />
       <View style={styles.CommentBox}>
-        <TouchableOpacity onPress={() => {
-            liked ? setliked(false) : setliked(true);
+        <TouchableOpacity
+          onPress={() => {
+            liked ? dispatch(unlike()) : dispatch(like());
           }}>
           <Image
             source={
@@ -52,8 +57,8 @@ const PostBox = (props: PostProps) => {
             style={styles.LikeBtn}
           />
         </TouchableOpacity>
-        <Text style={styles.Text}> 
-          <Text style={{fontWeight: "bold"}}>{props.username} </Text>
+        <Text style={styles.Text}>
+          <Text style={{fontWeight: 'bold'}}>{props.username} </Text>
           <Text>Look at this cat!</Text>
         </Text>
       </View>

@@ -16,9 +16,14 @@ import {
 
 import GetWeather from './GetWeather';
 
+import {useSelector, useDispatch} from 'react-redux';
+import {setCity} from '../app/weatherSlice';
+
 const SearchBar = () => {
+  const city = useSelector(state => state.city.value);
+  const dispatch = useDispatch();
   const [input, setInput] = useState('');
-  const [city, setCity] = useState('');
+  // const [city, setCity] = useState('');
 
   return (
     <View style={styles.Area}>
@@ -31,7 +36,7 @@ const SearchBar = () => {
         style={styles.Button}
         title={'Submit'}
         onPress={() => {
-          setCity(input);
+          dispatch(setCity(input));
         }}
         color={'#CFD2CD'}>
         <Text style={styles.text}>Submit</Text>

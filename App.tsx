@@ -34,18 +34,24 @@ import {Dimensions} from 'react-native';
 
 import {fileURLToPath} from 'url';
 import Profile from './src/Profile/Profile';
+
+import store from './src/app/store';
+import {Provider} from 'react-redux';
+
 const height = Dimensions.get('screen').height;
 
 const App = () => {
   const [screen, setScreen] = useState('home');
   return (
-    <NavigationContainer>
-      <Tab.Navigator initialRouteName="Weather">
-        <Tab.Screen name="Weather" component={WeatherScreen} />
-        <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Profile" component={Profile} />
-      </Tab.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Tab.Navigator initialRouteName="Weather">
+          <Tab.Screen name="Weather" component={WeatherScreen} />
+          <Tab.Screen name="Home" component={HomeScreen} />
+          <Tab.Screen name="Profile" component={Profile} />
+        </Tab.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 };
 
